@@ -1,5 +1,8 @@
 require "csv"
+require "logger"
 require "pry"
+
+$logger = Logger.new(STDERR)
 
 def to_text(file)
   `pdftotext -layout "#{file}" -`
@@ -37,12 +40,17 @@ class Line
 end
 
 class Page
-  def initialize(page)
+  def initialize(page, page_num)
     @page = page
+    @page_num = page_num
   end
 
   def extract(field_count, row_regexp)
     offs = offsets(field_count)
+    unless offs
+      $logger.warn "skipping page #{@page_num}"
+      return []
+    end
     result = []
     current_fields = nil
     lines.each do |l|
@@ -64,7 +72,9 @@ class Page
 
   def self.from_text(text)
     # pdftotext inserts a "page break" between each page
-    text.split("\f").map { |t| Page.new(t) }
+    text.split("\f").each_with_index.map do |t,i| 
+      Page.new(t, i+1)
+    end
   end
 
   private
@@ -75,7 +85,7 @@ class Page
   def offsets(field_count)
     # find a representative line containing all fields
     rep_line = lines.select { |l| l.field_count == field_count }[1]
-    raise "no representative line found!" unless rep_line
+    return nil unless rep_line
     rep_line.offsets
   end
 end
