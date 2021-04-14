@@ -1,0 +1,15 @@
+                                                     Boston Police Department Public Records Requests
+
+
+ Reference No       Request Status   Create Date   Req. Compl. Date   Close Date         Assigned Dept        Customer Full Name           Company Name
+R001011-111720   Exemption Denial     11-17-20         12-02-20        11-18-20    OPC                   John Maura
+R001012-111720   Admin Closed         11-17-20         12-02-20        11-18-20    BAT/POLICE REPORTS    LESLEY CHUANG             Coughlin Betke LLP
+B001833-111720   Forwarded to PSU     11-17-20         12-02-20        11-18-20    OPC                   Harry Hardman
+B001834-111720   New Request          11-17-20         12-02-20                    OPC                   Mark Sorrento
+B001846-111820   New Request          11-18-20         12-03-20                    OPC                   TCHAVDAR NATCHEV-PENO
+
+
+
+
+                                                                                                                                                          187
+
