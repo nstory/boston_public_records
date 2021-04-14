@@ -1,4 +1,4 @@
-require_relative "../src/line.rb"
+require_relative "../lib/line.rb"
 
 describe Line do
   it "finds offsets" do

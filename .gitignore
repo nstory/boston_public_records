@@ -4,4 +4,7 @@
 /target/*
 !/target/.keep
 
+/output/*
+!/output/.keep
+
 /env.list

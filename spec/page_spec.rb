@@ -1,4 +1,4 @@
-require_relative "../src/page.rb"
+require_relative "../lib/page.rb"
 
 describe Page do
   let(:text) { IO.read("#{__dir__}/#{filename}", encoding: "UTF-8") }
