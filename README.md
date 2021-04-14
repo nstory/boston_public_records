@@ -3,8 +3,6 @@ This project produces a spreadsheet containing public records requests (PRRs) ma
 
 These records were exported from the [Boston GovQA Public Records Center](https://bostonma.govqa.us/WEBAPP/_rs/(S(drgaqavruzr2edqgq0jblw5g))/login.aspx) and include requests to the Boston Police Department from 2017 - 2020. Other city departments began using the GovQA system in early 2020.
 
-This project's structure is modeled on the practices espoused in [Patrick Ball: Principled Data Processing](https://www.youtube.com/watch?v=ZSunU9GQdcI).
-
 See also [the blog post](https://blog.wokewindows.org/2021/01/14/boston-public-records-log.html).
 
 ## DOWNLOADS
@@ -24,6 +22,8 @@ $ make docker-run # if this fails, touch env.list
 ```
 
 ## FILE LAYOUT
+This project's structure is modeled on the practices espoused in [Patrick Ball: Principled Data Processing](https://www.youtube.com/watch?v=ZSunU9GQdcI).
+
 * Makefile is used to execute everything
 * input files are stored in `input/` &mdash; there are Make targets to download these
 * output files are stored in `output/`

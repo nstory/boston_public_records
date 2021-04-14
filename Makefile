@@ -21,6 +21,16 @@ ALL_REQUESTS_XLSX=output/boston_prr_2017_2020.xlsx
 
 .EXPORT_ALL_VARIABLES:
 
+# TOP LEVEL PHONY TARGETS
+
+.PHONY: docker-build
+docker-build:
+	docker build -t boston_public_records .
+
+.PHONY: docker-run
+docker-run:
+	docker run --rm --env-file env.list -v `pwd`:/volume -ti boston_public_records sh
+
 .PHONY: all
 all: $(ALL_REQUESTS_XLSX)
 
@@ -41,8 +51,15 @@ deploy: $(ALL_REQUESTS_CSV) $(ALL_REQUESTS_XLSX)
 test:
 	rspec
 
+# DOWNLOAD INPUT FILES
+
 $(REQUESTS_PDFS):
 	wget 'https://cdn.muckrock.com/foia_files/2021/04/12/$(subst input/,,$@)' -O $@
+
+input/%:
+	wget -P input/ https://wokewindows-data.s3.amazonaws.com/$(@F)
+
+# PRODUCE OUTPUT FILES
 
 # manual offsets for fields on pages the script can't automatically figure out
 $(REQUESTS_2020_CSV): export PAGE55=23,34,45,51,73,89
@@ -66,14 +83,3 @@ $(ALL_REQUESTS_CSV): $(BOSTON_REQUESTS_CSV) $(POLICE_REQUESTS_CSV) $(REQUESTS_CS
 # the 44,34,76 magic makes importing utf-8 csv work :shrugs:
 %.xlsx : %.csv
 	unoconv -i FilterOptions=44,34,76 -f xlsx -o $@ $<
-
-input/%:
-	wget -P input/ https://wokewindows-data.s3.amazonaws.com/$(@F)
-
-.PHONY: docker-build
-docker-build:
-	docker build -t boston_public_records .
-
-.PHONY: docker-run
-docker-run:
-	docker run --rm --env-file env.list -v `pwd`:/volume -ti boston_public_records sh
